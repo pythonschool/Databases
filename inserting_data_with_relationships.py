@@ -14,7 +14,7 @@ def insert_product_type_data(records):
         query(sql, record)
 
 if __name__ == "__main__":
-    products = [("Americano",2.0,1),("Mocha",3.5,1),("Green Tea with Lemon",1.25,2)]
-    #insert_product_data(products)
-    product_types = [("Coffee",),("Tea",),("Cold Drink",)]
+    products = [("Signature",4.0,4),("Caramel Delight",3.5,4)]
+    insert_product_data(products)
+    product_types = [("Hot Chocolate",)]
     insert_product_type_data(product_types)
