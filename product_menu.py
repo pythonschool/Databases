@@ -3,8 +3,8 @@
 
 import sqlite3
 
-def create_table(db_name,table_name,sql):
-    with sqlite3.connect(db_name) as db:
+def create_table(table_name,sql):
+    with sqlite3.connect(DATABASE) as db:
         print(table_name)
         cursor = db.cursor()
         cursor.execute("select name from sqlite_master where name=?",(table_name,))
@@ -25,47 +25,52 @@ def create_table(db_name,table_name,sql):
             cursor.execute(sql)
             db.commit()
 
-def delete_product(data):
-    with sqlite3.connect("coffee_shop.db") as db:
+def query(sql,data):
+    with sqlite3.connect(DATABASE) as db:
         cursor = db.cursor()
-        sql = "delete from product where name=?"
         cursor.execute(sql,data)
         db.commit()
+
+def query_with_results(sql,data):
+    with sqlite3.connect(DATABASE) as db:
+        cursor = db.cursor()
+        if data == None:
+            cursor.execute(sql)
+        else:
+            cursor.execute(sql,data)
+        results = cursor.fetchall()
+        return results
+
+def query_with_single_result(sql,data):
+    with sqlite3.connect(DATABASE) as db:
+        cursor = db.cursor()
+        cursor.execute(sql,data)
+        result = cursor.fetchone()
+        return result
+
+def delete_product(data):
+    sql = "delete from product where name=?"
+    query(sql,data)
 
 def insert_data(values):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        sql = "insert into product (name,price) values(?,?)"
-        cursor.execute(sql,values)
-        db.commit()
+    sql = "insert into product (name,price) values(?,?)"
+    query(sql,values)
 
 def update_product(data):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        sql = "update product set name=?, price=? where product_id=?"
-        cursor.execute(sql,data)
-        db.commit()
+    sql = "update product set name=?, price=? where product_id=?"
+    query(sql,data)
 
 def select_all_products():
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        cursor.execute("select * from product")
-        products = cursor.fetchall()
-        return products
+    sql = "select * from product"
+    return query_with_results(sql,None)
 
 def select_product(id):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        cursor.execute("select * from product where product_id=?",(id,))
-        product = cursor.fetchone()
-        return product
+    sql = "select * from product where product_id=?"
+    return query_with_single_result(sql,(id,))
 
 def select_product_with_name(name):
-    with sqlite3.connect("coffee_shop.db") as db:
-        cursor = db.cursor()
-        cursor.execute("select * from product where name=?",(name,))
-        product = cursor.fetchone()
-        return product
+    sql = "select * from product where name=?"
+    return query_with_single_result(sql,(name,))
 
 def display_menu():
     print("Product Table Menu")
@@ -89,11 +94,14 @@ def get_menu_choice():
     return choice
 
 def display_select_results(results):
-    print()
-    print("{0:<15} {1:<15} {2:<15}".format("Product ID","Product Name", "Product Price"))
-    for result in results:
-        print("{0:<15} {1:<15} {2:<15}".format(result[0],result[1],result[2]))
-    print()
+    if results[0] != None:
+        print()
+        print("{0:<15} {1:<15} {2:<15}".format("Product ID","Product Name", "Product Price"))
+        for result in results:
+            print("{0:<15} {1:<15} {2:<15}".format(result[0],result[1],result[2]))
+        print()
+    else:
+        print("The query returned no results")
 
 
 def main():
@@ -107,7 +115,7 @@ def main():
             name text,
             price real,
             primary key(product_id))"""
-            create_table("coffee_shop.db", "product",sql)
+            create_table("product",sql)
         elif choice == 2:
             name = input("Please enter name of new product: ")
             price = float(input("Please enter the price of {0}: ".format(name)))
@@ -134,6 +142,7 @@ def main():
 
 
 if __name__ == "__main__":
+    DATABASE = "coffee_shop.db"
     main()
 
 
