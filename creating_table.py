@@ -18,7 +18,7 @@ def create_table(db_name,table_name,sql):
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
             else:
-                print("The existing animal table was kept")
+                print("The existing table was kept")
         else:
             keep_table = False
         if not keep_table:
@@ -27,10 +27,10 @@ def create_table(db_name,table_name,sql):
 
 if __name__ == "__main__":
     db_name = "coffee_shop.db"
-    sql = """create table product
-            (product_id integer,
-            name text,
-            price real,
-            primary key(product_id))"""
-    create_table(db_name, "product", sql)
+    sql = """create table Product
+            (ProductID integer,
+            Name text,
+            Price real,
+            primary key(productID))"""
+    create_table(db_name, "Product", sql)
 
