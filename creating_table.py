@@ -27,10 +27,10 @@ def create_table(db_name,table_name,sql):
 
 if __name__ == "__main__":
     db_name = "coffee_shop.db"
-    sql = """create table product
-            (product_id integer,
-            name text,
-            price real,
-            primary key(product_id))"""
-    create_table(db_name, "product", sql)
+    sql = """create table Product
+            (ProductID integer,
+            Name text,
+            Price real,
+            primary key(ProductID))"""
+    create_table(db_name, "Product", sql)
 
