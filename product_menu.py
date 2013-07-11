@@ -18,7 +18,7 @@ def create_table(db_name,table_name,sql):
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
             else:
-                print("The existing animal table was kept")
+                print("The existing table was kept")
         else:
             keep_table = False
         if not keep_table:
@@ -28,42 +28,42 @@ def create_table(db_name,table_name,sql):
 def delete_product(data):
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "delete from product where name=?"
+        sql = "delete from Product where Name=?"
         cursor.execute(sql,data)
         db.commit()
 
 def insert_data(values):
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "insert into product (name,price) values(?,?)"
+        sql = "insert into Product (Name,Price) values(?,?)"
         cursor.execute(sql,values)
         db.commit()
 
 def update_product(data):
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "update product set name=?, price=? where product_id=?"
+        sql = "update Product set Name=?, Price=? where ProductID=?"
         cursor.execute(sql,data)
         db.commit()
 
 def select_all_products():
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        cursor.execute("select * from product")
+        cursor.execute("select * from Product")
         products = cursor.fetchall()
         return products
 
 def select_product(id):
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        cursor.execute("select * from product where product_id=?",(id,))
+        cursor.execute("select * from Product where ProductID=?",(id,))
         product = cursor.fetchone()
         return product
 
 def select_product_with_name(name):
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        cursor.execute("select * from product where name=?",(name,))
+        cursor.execute("select * from Product where Name=?",(name,))
         product = cursor.fetchone()
         return product
 
@@ -102,12 +102,12 @@ def main():
         display_menu()
         choice = get_menu_choice()
         if choice == 1:
-            sql = """create table product
-            (product_id integer,
-            name text,
-            price real,
-            primary key(product_id))"""
-            create_table("coffee_shop.db", "product",sql)
+            sql = """create table Product
+            (ProductID integer,
+            Name text,
+            Price real,
+            primary key(ProductID))"""
+            create_table("coffee_shop.db", "Product",sql)
         elif choice == 2:
             name = input("Please enter name of new product: ")
             price = float(input("Please enter the price of {0}: ".format(name)))
