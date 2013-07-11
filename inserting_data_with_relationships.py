@@ -4,12 +4,12 @@
 from database_functions import query
 
 def insert_product_data(records):
-    sql = "insert into product (name,price,product_type_id) values (?,?,?)"
+    sql = "insert into Product (Name,Price,ProductTypeID) values (?,?,?)"
     for record in records:
         query(sql, record)
 
 def insert_product_type_data(records):
-    sql = "insert into product_type(name) values (?)"
+    sql = "insert into ProductType(Description) values (?)"
     for record in records:
         query(sql, record)
 
