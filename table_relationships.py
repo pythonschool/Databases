@@ -23,7 +23,7 @@ def create_table(table_name,sql):
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
             else:
-                print("The existing animal table was kept")
+                print("The existing table was kept")
         else:
             keep_table = False
         if not keep_table:
@@ -31,20 +31,20 @@ def create_table(table_name,sql):
             db.commit()
 
 def create_product_type_table():
-    sql = """create table product_type(
-            product_type_id integer,
-            name text,
-            primary key(product_type_id))"""
+    sql = """create table ProductType(
+            ProductTypeID integer,
+            Description text,
+            primary key(ProductTypeID))"""
     create_table("product_type",sql)
 
 def create_product_table():
-    sql = """create table product
-            (product_id integer,
-            name text,
-            price real,
-            product_type_id integer,
-            primary key(product_id),
-            foreign key(product_type_id) references product_type(product_type_id))"""
+    sql = """create table Product
+            (ProductID integer,
+            Name text,
+            Price real,
+            ProductTypeID integer,
+            primary key(ProductID),
+            foreign key(ProductTypeID) references product_type(ProductTypeID))"""
     create_table("product",sql)
 
 if __name__ == "__main__":
