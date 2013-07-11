@@ -35,7 +35,7 @@ def create_product_type_table():
             ProductTypeID integer,
             Description text,
             primary key(ProductTypeID))"""
-    create_table("product_type",sql)
+    create_table("ProductType",sql)
 
 def create_product_table():
     sql = """create table Product
@@ -44,8 +44,8 @@ def create_product_table():
             Price real,
             ProductTypeID integer,
             primary key(ProductID),
-            foreign key(ProductTypeID) references product_type(ProductTypeID))"""
-    create_table("product",sql)
+            foreign key(ProductTypeID) references ProductType(ProductTypeID))"""
+    create_table("Product",sql)
 
 if __name__ == "__main__":
     DATABASE = "coffee_shop.db"
