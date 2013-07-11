@@ -15,6 +15,6 @@ def insert_product_type_data(records):
 
 if __name__ == "__main__":
     products = [("Americano",2.0,1),("Mocha",3.5,1),("Green Tea with Lemon",1.25,2)]
-    #insert_product_data(products)
+    insert_product_data(products)
     product_types = [("Coffee",),("Tea",),("Cold Drink",)]
     insert_product_type_data(product_types)
