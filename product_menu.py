@@ -18,7 +18,7 @@ def create_table(table_name,sql):
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
             else:
-                print("The existing animal table was kept")
+                print("The existing table was kept")
         else:
             keep_table = False
         if not keep_table:
@@ -49,27 +49,27 @@ def query_with_single_result(sql,data):
         return result
 
 def delete_product(data):
-    sql = "delete from product where name=?"
+    sql = "delete from Product where Name=?"
     query(sql,data)
 
 def insert_data(values):
-    sql = "insert into product (name,price) values(?,?)"
+    sql = "insert into Product (Name,Price) values(?,?)"
     query(sql,values)
 
 def update_product(data):
-    sql = "update product set name=?, price=? where product_id=?"
+    sql = "update Product set Name=?, Price=? where ProductID=?"
     query(sql,data)
 
 def select_all_products():
-    sql = "select * from product"
+    sql = "select * from Product"
     return query_with_results(sql,None)
 
 def select_product(id):
-    sql = "select * from product where product_id=?"
+    sql = "select * from Product where ProductID=?"
     return query_with_single_result(sql,(id,))
 
 def select_product_with_name(name):
-    sql = "select * from product where name=?"
+    sql = "select * from Product where Name=?"
     return query_with_single_result(sql,(name,))
 
 def display_menu():
@@ -110,12 +110,12 @@ def main():
         display_menu()
         choice = get_menu_choice()
         if choice == 1:
-            sql = """create table product
-            (product_id integer,
-            name text,
-            price real,
-            primary key(product_id))"""
-            create_table("product",sql)
+            sql = """create table Product
+            (ProductID integer,
+            Name text,
+            Price real,
+            primary key(ProductID))"""
+            create_table("Product",sql)
         elif choice == 2:
             name = input("Please enter name of new product: ")
             price = float(input("Please enter the price of {0}: ".format(name)))
