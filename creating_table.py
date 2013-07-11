@@ -18,7 +18,7 @@ def create_table(db_name,table_name,sql):
                 cursor.execute("drop table if exists {0}".format(table_name))
                 db.commit()
             else:
-                print("The existing animal table was kept")
+                print("The existing table was kept")
         else:
             keep_table = False
         if not keep_table:
