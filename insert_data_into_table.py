@@ -6,7 +6,7 @@ import sqlite3
 def insert_data(values):
     with sqlite3.connect("coffee_shop.db") as db:
         cursor = db.cursor()
-        sql = "insert into product (name,price) values(?,?)"
+        sql = "insert into Product (Name,Price) values(?,?)"
         cursor.execute(sql,values)
         db.commit()
 
